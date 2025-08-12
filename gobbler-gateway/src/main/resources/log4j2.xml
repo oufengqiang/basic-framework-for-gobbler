@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    日志级别及优先级排序：OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALL
+    Configuration是log4j2配置的根元素
+    Configuration的status是用于设置log4j2自身内部的信息输出，可以不设置
+    Configuration的monitorInterval是用于设置自动检测配置文件的间隔秒数
+-->
+<Configuration>
+    <!-- 定义一些变量，便于在配置中复用 -->
+    <Properties>
+        <!-- 配置日志文件输出目录 -->
+        <property name="log-path">/logs/gobbler/gobbler-gateway</property>
+        <!-- 日志格式 -->
+        <property name="filePattern">[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%t] %-5level %logger{36} - %msg%n</property>
+    </Properties>
+    <!-- 定义日志输出的目的地，如控制台、文件等 -->
+    <Appenders>
+        <!-- Console代表向控制台打印日志 -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <!-- 输出日志的格式 -->
+            <PatternLayout>
+                <pattern>${filePattern}</pattern>
+            </PatternLayout>
+        </Console>
+        <!--
+            该appender表示打印所有的info的日志，
+            每个日志文件大小不得超过size，否则会自动存入按年份-月份建立的文件夹下面并进行压缩存档
+        -->
+        <RollingFile name="RollingFileInfo" fileName="${log-path}/gobbler-gateway-info.log"
+                     filePattern="${log-path}/info/$${date:yyyyMM}/gobbler-gateway-info-%d{yyyyMMdd}-%i.log.gz">
+            <Filters>
+                <!--
+                    ThresholdFilter用于过滤日志事件的核心组件，其核心作用是根据设定的阈值决定是否接受或拒绝日志事件。
+                    过滤掉低于指定级别的日志信息，onMatch和onMismatch两个参数，分别表示在过滤匹配和不匹配时采取的处理方式
+                        DENY：日志被直接拒绝，后续过滤器不再处理该日志
+                        NEUTRAL：日志进入下一个过滤器处理，若为最后一个过滤器则直接处理
+                        ACCEPT：日志被立即处理，不再经过后续过滤器
+                -->
+                <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY" />
+            </Filters>
+
+            <!-- 输出日志的格式 -->
+            <PatternLayout>
+                <pattern>${filePattern}</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="1MB" />
+            </Policies>
+            <!-- DefaultRolloverStrategy属性的max如果不设置，则默认同一个文件夹下最多7个文件 -->
+            <DefaultRolloverStrategy max="20" />
+        </RollingFile>
+        <!--
+            该appender表示打印所有的warn的日志，
+            每个日志文件大小不得超过size，否则会自动存入按年份-月份建立的文件夹下面并进行压缩存档
+        -->
+        <RollingFile name="RollingFileWarn" fileName="${log-path}/gobbler-gateway-warn.log"
+                     filePattern="${log-path}/warn/$${date:yyyyMM}/gobbler-gateway-warn-%d{yyyyMMdd}-%i.log.gz">
+            <Filters>
+            <!--
+                ThresholdFilter用于过滤日志事件的核心组件，其核心作用是根据设定的阈值决定是否接受或拒绝日志事件。
+                过滤掉低于指定级别的日志信息，onMatch和onMismatch两个参数，分别表示在过滤匹配和不匹配时采取的处理方式
+                    DENY：日志被直接拒绝，后续过滤器不再处理该日志
+                    NEUTRAL：日志进入下一个过滤器处理，若为最后一个过滤器则直接处理
+                    ACCEPT：日志被立即处理，不再经过后续过滤器
+            -->
+                <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+
+            <!-- 输出日志的格式 -->
+            <PatternLayout>
+                <pattern>${filePattern}</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="1MB" />
+            </Policies>
+            <!-- DefaultRolloverStrategy属性的max如果不设置，则默认同一个文件夹下最多7个文件 -->
+            <DefaultRolloverStrategy max="20" />
+        </RollingFile>
+        <!--
+            该appender表示打印所有的error的日志，
+            每个日志文件大小不得超过size，否则会自动存入按年份-月份建立的文件夹下面并进行压缩存档
+        -->
+        <RollingFile name="RollingFileError" fileName="${log-path}/gobbler-gateway-error.log"
+                     filePattern="${log-path}/error/$${date:yyyyMM}/gobbler-gateway-error-%d{yyyyMMdd}-%i.log.gz">
+            <Filters>
+                <!--
+                    ThresholdFilter用于过滤日志事件的核心组件，其核心作用是根据设定的阈值决定是否接受或拒绝日志事件。
+                    过滤掉低于指定级别的日志信息，onMatch和onMismatch两个参数，分别表示在过滤匹配和不匹配时采取的处理方式
+                        DENY：日志被直接拒绝，后续过滤器不再处理该日志
+                        NEUTRAL：日志进入下一个过滤器处理，若为最后一个过滤器则直接处理
+                        ACCEPT：日志被立即处理，不再经过后续过滤器
+                -->
+                <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+
+            <!-- 输出日志的格式 -->
+            <PatternLayout>
+                <pattern>${filePattern}</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="1MB" />
+            </Policies>
+            <!-- DefaultRolloverStrategy属性的max如果不设置，则默认同一个文件夹下最多7个文件 -->
+            <DefaultRolloverStrategy max="20" />
+        </RollingFile>
+    </Appenders>
+    <!-- 定义日志记录器，指定日志级别和使用的Appenders -->
+    <Loggers>
+        <!-- 过滤掉Spring和MyBatis中一些日志信息 -->
+<!--        <logger name="org.springframework" level="INFO" />-->
+<!--        <logger name="org.mybatis" level="INFO" />-->
+        <!--
+            Root标签定义全局日志级别和默认的Appenders，用来指定项目的根日志，如果没有单独指定Logger，那么就会默认使用该Root进行日志输出
+            常用属性
+                name：名字，如果想指定某个包或类的打印策略，则为全包名或全类名
+                level：日志打印级别，如果Logger没有指定level属性，就会默认继承Root
+                    log4j2有8个级别，从低到高为：ALL < TRACE < DEBUG < INFO < WARN < ERROR < FATAL < OFF
+                    程序会打印低于或等于所设置级别的日志，设置的日志等级越高，打印出来的日志就越少
+         -->
+        <Root level="INFO">
+            <!--
+                如果Logger没有指定AppenderRef，就会默认继承Root。如果指定了AppenderRef，就会在指定的AppenderRef和Root的
+                Appender中都会输出，此时我们可以设置Logger的additivity=false只在自定义的Appender中进行输出
+             -->
+            <AppenderRef ref="Console" />
+            <AppenderRef ref="RollingFileInfo" />
+            <AppenderRef ref="RollingFileWarn" />
+            <AppenderRef ref="RollingFileError" />
+        </Root>
+    </Loggers>
+</Configuration>

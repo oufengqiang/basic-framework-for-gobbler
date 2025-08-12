@@ -1,0 +1,21 @@
+server:
+  port: 11802
+  servlet:
+    context-path: /user
+spring:
+  application:
+    name: user
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848 # nacos注册中心地址
+        username: nacos  # nacos账号
+        password: nacos  # nacos密码
+        namespace: gobbler # 命名空间
+  datasource: # 配置数据库连接的相关信息
+    url: jdbc:mysql:///db_gobbler # 数据库连接的URL，指定数据库类型、地址、端口号以及数据库名
+    username: root # 数据库的用户名
+    password: 123456 # 数据库的密码
+mybatis-plus:
+  mapper-locations: classpath*:/mybatis/*-mapper.xml # 配置MyBatis的xml的资源路径
+  type-aliases-package: com.jufamen.user.server.entity.bo # 配置resultType的包路径

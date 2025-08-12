@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <!-- 声明项目描述符遵循哪一个POM模型版本。模型本身的版本很少改变，
+         虽然如此，但它仍然是必不可少的，这是为了当Maven引入了新的特性或者其他模型变更的时候，确保稳定性
+     -->
+    <modelVersion>4.0.0</modelVersion>
+    <!-- 父项目的坐标：groupId、artifactId和version，如果项目中没有规定某个元素的值，那么父项目中的对应值即为项目的默认值 -->
+    <parent>
+        <!-- 被继承的父项目的构件标识符 -->
+        <groupId>org.springframework.boot</groupId>
+        <!-- 被继承的父项目的全球唯一标识 -->
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <!-- 被继承的父项目的版本 -->
+        <version>3.5.4</version>
+        <!-- 父项目的pom.xml文件的相对路径。相对路径允许你来选择一个不同的路径。默认值是../pom.xml
+             Maven首先在构建当前项目的地方寻找父项目的pom，其次在文件系统的这个位置（relativePath位置），
+             然后在本地仓库，最后在远程仓库寻找父项目的pom
+         -->
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <!-- 项目的全球唯一标识符，通常使用全限定的包名区分该项目和其他项目。并且构建时生成的路径也是由此生成，
+         如com.jufamen生成的相对路径时/com/jufamen
+     -->
+    <groupId>com.jufamen</groupId>
+    <!-- 构件的标识符，它和groupId一起唯一标识一个构件。换句话说，不能有两个不同的项目拥有同样的artifactId和groupId；
+         在某个特定的groupId下，artifactId也必须时唯一的。
+         构件时项目产生的或使用的一个东西，Maven为项目产生的构件包括：JARs、源码、二进制发布和WARs等。
+     -->
+    <artifactId>gobbler</artifactId>
+    <!-- 项目当前版本，格式为：主版本.次版本.增量版本-限定版本号 -->
+    <version>0.0.1-RELEASE</version>
+    <!-- 项目的名称，Maven产生的文档用 -->
+    <name>gobbler</name>
+    <!-- 项目的详细描述，Maven产生的文档用。当这个元素能够用HTML格式描述时（例如：CDATA中的文本会被解析器忽略，
+         就可以包含HTML标签），不鼓励使用纯文本描述。如果你需要修改产生的web站点的索引页面，你应该修改你自己的索
+         引页文件，而不是调整这里的文档
+     -->
+    <description>gobbler</description>
+    <!-- 项目产生的构件类型，例如jar、war、ear、pom。插件可以创建他们自己的构件类型，所以前面列的不是全部构件类型 -->
+    <packaging>pom</packaging>
+    <!-- 项目主页的URL，Maven产生的文档用 -->
+    <url/>
+    <!-- 该元素描述了项目所有License列表。应该只列出该项目的license列表，不要列车依赖项目的license列表。
+         如果列出多个license，用户可以选择它们中的一个而不是接受所有license。
+     -->
+    <licenses>
+        <!-- 描述了项目的license，用于生成项目的web站点的license页面，其他一些报表和validation也会用到该元素。 -->
+        <license/>
+    </licenses>
+    <!-- 项目开发者列表 -->
+    <developers>
+        <!-- 某个项目开发者的信息 -->
+        <developer/>
+    </developers>
+    <!-- SCM（Source Control Management）标签允许你配置你的代码库，供Maven web站点和其它插件使用。 -->
+    <scm>
+        <!-- SCM的URL，该URL描述了版本库和如何连接到版本库。欲知详情，请看SCMs提供的URL格式和列表。该连接只读 -->
+        <connection/>
+        <!-- 给开发者使用的，类似connection元素，即该连接不仅仅只读 -->
+        <developerConnection/>
+        <!-- 当前代码的标签，在开发阶段默认为HEAD -->
+        <tag/>
+        <!-- 指向项目的可浏览SCM库（例如ViewVC或者Fisheye）的URL -->
+        <url/>
+    </scm>
+    <!-- 以值替代名称，properties可以在整个POM中使用，也可以作为触发条件（见setting.xml配置文件里activation元素说明）。
+         格式时<name>value</name>
+     -->
+    <properties>
+        <java.version>24</java.version>
+        <spring-cloud.version>2025.0.0</spring-cloud.version>
+        <spring-cloud-alibaba.version>2023.0.3.3</spring-cloud-alibaba.version>
+        <mybatis-plus.version>3.5.12</mybatis-plus.version>
+        <mysql.version>9.3.0</mysql.version>
+        <gobbler.version>0.0.1-RELEASE</gobbler.version>
+    </properties>
+    <!-- 模块（也称子项目），被构建成项目的一部分。列出的每个模块元素是指向该模块的目录的相对路径 -->
+    <modules>
+        <!-- 子模块相对路径 -->
+        <module>gobbler-gateway</module>
+        <module>gobbler-common</module>
+        <module>order-server</module>
+        <module>user-server</module>
+    </modules>
+    <!-- 该元素描述了项目相关的所有依赖。这些依赖组成了项目构建过程中的一个个环节。它们自动从项目定义的仓库中下载。
+         要获取更多信息，请看项目依赖机制。
+     -->
+    <dependencies>
+        <!-- 参数校验依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+            <exclusions>
+                <!-- 去掉springboot默认的日志依赖 -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <!-- 继承该项目的所有子项目的默认依赖。这部分的依赖信息不会被立即解析，而是当子项目声明一个依赖
+         （必须描述groupId和artifactId信息），如果groupId和artifactId以外的一些信息没有描述，
+         则通过groupId和artifactId匹配到这里的依赖，并使用这里的依赖信息。
+     -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <!-- 构建项目需要的信息 -->
+    <build>
+        <!-- 使用的插件列表 -->
+        <plugins>
+            <!-- plugin元素包含描述插件所需要的信息 -->
+            <plugin>
+                <!-- 插件在仓库里的groupId -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <!-- 插件在仓库里的artifactId -->
+                <artifactId>maven-compiler-plugin</artifactId>
+                <!-- 作为DOM对象的配置 -->
+                <configuration>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.springframework.boot</groupId>
+                            <artifactId>spring-boot-configuration-processor</artifactId>
+                        </path>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -1,0 +1,24 @@
+server:
+  port: 11801
+spring:
+  application:
+    name: gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848 # nacos注册中心地址
+        username: nacos  # nacos账号
+        password: nacos  # nacos密码
+        namespace: gobbler # 命名空间
+    gateway:
+      server:
+        webmvc:
+          routes: # 配置路由转发机制，路由是构建网关的基本模块，它由ID，目标URI，一系列的断言和过滤器组成，如果断言为true则匹配该路由
+            - id: user-server # 路由ID是路由的唯一标识
+              uri: lb://user # 目标URI指明了请求转发的目标地址
+              predicates: # 谓词和过滤器则是用来描述路由的行为
+                - Path=/user/** # 谓词是用来匹配HTTP请求的，只有满足谓词条件的请求才会被路由转
+            - id: order-server
+              uri: lb://order
+              predicates:
+                - Path=/order/**
