@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * 账号接口实现类
+ */
 @Slf4j
 /*
     @Service注解表示该类是一个服务层组件，通常用于实现业务逻辑，表示该 Bean 包含业务逻辑，可以提高代码的可读性，并使得服务层的角色更明确

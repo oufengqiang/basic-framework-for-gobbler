@@ -4,6 +4,8 @@ import com.jufamen.gobbler.common.response.Result;
 import com.jufamen.gobbler.common.response.ResultEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.binding.BindingException;
+import org.apache.ibatis.exceptions.IbatisException;
+import org.apache.ibatis.exceptions.PersistenceException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -73,6 +75,23 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public Result<Object> handleBindException(BindingException e) {
         log.error("发生绑定异常：",e);
+        return Result.failed(ResultEnum.INTERNAL_SERVER_ERROR.getCode(),ResultEnum.INTERNAL_SERVER_ERROR.getMessage());
+    }
+
+    /*
+        @ExceptionHandler注解主要用于处理控制器层中的异常，允许自定义一个方法处理控制器方法抛出的特定异常。
+     */
+    @ExceptionHandler(PersistenceException.class)
+    /*
+        @ResponseBody用于指示方法的返回值应该被直接写入HTTP响应体。这通常用于处理返回非HTML内容的请求，如JSON或XML。
+        当方法上标注了@ResponseBody，Spring会使用RequestMappingHandlerAdapter来处理请求，
+        而不是默认的HttpRequestHandlerAdapter。这使得返回值能够通过HttpMessageConverter转换为客户端期望的格式。
+            1、将返回值转换成JSON，如果返回值是String或者其他基本数据类型则不满足key-value形式，不能转换成json类型，则返回字符串
+            2、设置响应头为application/json;charset=utf-8；返回值为字符串，则不能转换成json格式的则响应头设置为text/html
+     */
+    @ResponseBody
+    public Result<Object> handleIbatisException(PersistenceException e) {
+        log.error("执行数据库操作发生异常：",e);
         return Result.failed(ResultEnum.INTERNAL_SERVER_ERROR.getCode(),ResultEnum.INTERNAL_SERVER_ERROR.getMessage());
     }
 }

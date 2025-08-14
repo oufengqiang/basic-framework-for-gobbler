@@ -7,6 +7,9 @@ import com.jufamen.user.server.entity.bo.AccountBo;
 import com.jufamen.user.server.entity.dto.QueryAccountDto;
 import com.jufamen.user.server.entity.pojo.Account;
 
+/**
+ * 账号接口
+ */
 /*
     com.baomidou.mybatisplus.extension.service.IService是MyBatis-Plus框架中的一个接口，
     为开发者提供了一种便捷的方式来操作数据库中的数据

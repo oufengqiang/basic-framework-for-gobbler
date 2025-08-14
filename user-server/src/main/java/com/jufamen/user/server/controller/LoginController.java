@@ -1,22 +1,20 @@
 package com.jufamen.user.server.controller;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
+
 import com.jufamen.gobbler.common.check.Add;
-import com.jufamen.gobbler.common.check.Delete;
-import com.jufamen.gobbler.common.check.Edit;
-import com.jufamen.gobbler.common.controller.BaseController;
 import com.jufamen.gobbler.common.response.Result;
-import com.jufamen.user.server.entity.bo.AccountBo;
-import com.jufamen.user.server.entity.dto.QueryAccountDto;
+import com.jufamen.user.server.entity.dto.LoginDto;
 import com.jufamen.user.server.entity.pojo.Account;
-import com.jufamen.user.server.service.AccountService;
+import com.jufamen.user.server.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 账号控制器
+ * 登录控制器
  */
 /*
     @RestController是Spring 4.0之后新增的注解，是@Controller和@ResponseBody的组合注解，
@@ -72,63 +70,28 @@ import org.springframework.web.bind.annotation.*;
         @Reflective({ControllerMappingReflectiveProcessor.class})
             用于指示元素需要反射处理，它会触发配置处理器并默认注册提示，支持自动装载和元注解应用
  */
-@RequestMapping("/account")
+@RequestMapping("/")
 @Slf4j
 /*
    @RequiredArgsConstructor是Lombok框架提供的一个注解，用于简化依赖注入代码的编写。
    通过自动生成构造函数来替代手动添加@Autowired注解，主要用于Spring框架中减少重复的依赖注入代码。
  */
 @RequiredArgsConstructor
-public class AccountController extends BaseController {
+public class LoginController {
 
     /**
-     * 账号服务实例
+     * 登录服务实例
      */
-    private final AccountService accountService;
+    private final LoginService loginService;
 
     /**
-     * 分页查询账号信息
-     * @param queryAccountDto 分页查询账号参数
+     * 登录
+     * @param loginDto 登录参数
      * @return 需要返回接口响应结果
      */
-    @GetMapping
-    public Result<Object> pageList(QueryAccountDto queryAccountDto){
-        IPage<AccountBo> page = this.buildPage(queryAccountDto);
-        return accountService.pageList(page,queryAccountDto);
+    @PostMapping("/login")
+    public Result<Object> login(@Validated(Add.class) LoginDto loginDto){
+        return loginService.login(loginDto);
     }
 
-    @GetMapping("{id}")
-    public Result<Object> view(@PathVariable("id") Integer id){
-        return accountService.view(id);
-    }
-
-    /**
-     * 添加账号
-     * @param account 添加的账号信息实体对象
-     * @return 需要返回接口响应结果
-     */
-    @PostMapping
-    public Result<Object> add(@Validated(Add.class) Account account){
-        return accountService.add(account);
-    }
-
-    /**
-     * 编辑账号
-     * @param account 编辑的账号信息实体对象
-     * @return 需要返回接口响应结果
-     */
-    @PutMapping
-    public Result<Object> edit(@Validated(Edit.class) Account account){
-        return accountService.edit(account);
-    }
-
-    /**
-     * 删除账号
-     * @param account 删除的账号信息实体对象
-     * @return 需要返回接口响应结果
-     */
-    @DeleteMapping
-    public Result<Object> delete(@Validated(Delete.class) Account account){
-        return accountService.delete(account);
-    }
 }

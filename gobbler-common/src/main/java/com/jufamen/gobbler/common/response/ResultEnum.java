@@ -21,7 +21,8 @@ public enum ResultEnum {
     INTERNAL_SERVER_ERROR(500,"服务器内部错误，无法完成请求"), // 服务器内部错误，无法完成请求
     BAD_GATEWAY(502,"网关无响应"), // 服务器作为网关或代理，从上游服务器收到无效响应
     SERVICE_UNAVAILABLE(503,"服务器无响应"), // 服务器目前无法使用（由于超载或停机维护）。通常只是暂时状态
-    GATEWAY_TIMEOUT(504,"网关超时"); // 服务器作为网关或代理，但是没有及时从上游服务器收到请求。
+    GATEWAY_TIMEOUT(504,"网关超时"), // 服务器作为网关或代理，但是没有及时从上游服务器收到请求。
+    CUSTOMIZE(600,"自定义服务器响应"); // 自定义服务器响应结果
 
     private final int code;
 

@@ -8,6 +8,9 @@ import com.jufamen.user.server.entity.pojo.Account;
 
 import java.util.List;
 
+/**
+ * 账号CRUD封装方法
+ */
 /*
     com.baomidou.mybatisplus.core.mapper.BaseMapper是MyBatis-Plus框架中定义的一个接口，
     它继承自MyBatis的Mapper接口，并为MyBatis-Plus提供了额外的功能。
