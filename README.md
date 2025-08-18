@@ -1,5 +1,5 @@
 # basic-framework-for-gobbler
-## Gobbler系统基础框架，  
+## Gobbler系统基础框架  
     JDK版本：JDK 24  
     Maven版本：3.9.10  
     Spring Cloud版本：2025.0.0  
