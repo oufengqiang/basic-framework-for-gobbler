@@ -4,7 +4,6 @@ import com.jufamen.gobbler.common.response.Result;
 import com.jufamen.gobbler.common.response.ResultEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.binding.BindingException;
-import org.apache.ibatis.exceptions.IbatisException;
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;

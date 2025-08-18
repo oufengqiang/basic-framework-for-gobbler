@@ -74,6 +74,7 @@
         <mybatis-plus.version>3.5.12</mybatis-plus.version>
         <mysql.version>9.3.0</mysql.version>
         <gobbler.version>0.0.1-RELEASE</gobbler.version>
+        <hutool.version>5.8.39</hutool.version>
     </properties>
     <!-- 模块（也称子项目），被构建成项目的一部分。列出的每个模块元素是指向该模块的目录的相对路径 -->
     <modules>
@@ -103,6 +104,12 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
+        </dependency>
+        <!-- Hutool工具依赖 -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
