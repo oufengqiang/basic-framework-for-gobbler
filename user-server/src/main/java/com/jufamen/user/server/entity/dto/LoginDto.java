@@ -1,9 +1,7 @@
 package com.jufamen.user.server.entity.dto;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.jufamen.gobbler.common.check.Add;
-import com.jufamen.gobbler.common.check.Edit;
-import com.jufamen.gobbler.common.entity.pojo.BaseEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
@@ -14,6 +12,7 @@ import java.io.Serializable;
  * 对应账号表t_account的账号实体类
  */
 @Data
+@Schema(description = "登录请求对象")
 public class LoginDto implements Serializable {
 
     /*
@@ -27,9 +26,11 @@ public class LoginDto implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    @Schema(description = "账号", example = "账号必填参数", minLength = 4, maxLength = 20, requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "账号不能为空",groups = {Add.class})
     private String account;
 
+    @Schema(description = "密码", example = "密码必填参数", minLength = 4, maxLength = 20, requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "密码不能为空",groups = {Add.class})
     private String password;
 }

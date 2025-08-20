@@ -1,6 +1,7 @@
 package com.jufamen.gobbler.common.entity.dto;
 
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.io.Serial;
@@ -32,47 +33,56 @@ public class QueryDto implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 每页显示条数，默认10
+     * 每页显示记录数，默认为10
      */
+    @Schema(description = "每页显示记录数，默认为10")
     private Long size = 10L;
 
     /**
-     * 当前页，默认1
+     * 当前页，默认为1
      */
+    @Schema(description = "当前页，默认为1")
     private Long current = 1L;
 
     /**
-     * 查询列表总记录数，默认0
+     * 查询列表总记录数，默认为0
      */
+    @Schema(description = "查询列表总记录数，默认为0")
     private	Long total = 0L;
 
     /**
      * 排序字段信息
      */
+    @Schema(description = "排序字段信息")
     private List<OrderItem> orders;
 
     /**
-     * 是否自动优化COUNT SQL，默认true
+     * 是否自动优化COUNT SQL，默认为true
      */
+    @Schema(description = "是否自动优化COUNT SQL，默认为true")
     private boolean	optimizeCountSql = true;
 
     /**
-     * 自动优化COUNT SQL是否把join查询部分移除，默认true
+     * 自动优化COUNT SQL是否把join查询部分移除，默认为true
      */
+    @Schema(description = "自动优化COUNT SQL是否把join查询部分移除，默认为true")
     private boolean	optimizeJoinOfCountSql = true;
 
     /**
-     * 是否进行count查询，默认true
+     * 是否进行count查询，默认为true
      */
+    @Schema(description = "是否进行count查询，默认为true")
     private boolean	searchCount = true;
 
     /**
      * 单页分页条数限制
      */
+    @Schema(description = "单页分页条数限制")
     private Long maxLimit;
 
     /**
      * XML自定义count查询的statementId
      */
+    @Schema(description = "XML自定义count查询的statementId")
     private String countId;
 }

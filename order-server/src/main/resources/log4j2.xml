@@ -27,7 +27,7 @@
             每个日志文件大小不得超过size，否则会自动存入按年份-月份建立的文件夹下面并进行压缩存档
         -->
         <RollingFile name="RollingFileInfo" fileName="${log-path}/order-server-info.log"
-                     filePattern="${log-path}/info/$${date:yyyyMM}/order-server-info-%d{yyyyMMdd}-%i.log.gz">
+                     filePattern="${log-path}/info/$${date:yyyyMMdd}/order-server-info-%d{yyyyMMdd}-%i.log.gz">
             <Filters>
                 <!--
                     ThresholdFilter用于过滤日志事件的核心组件，其核心作用是根据设定的阈值决定是否接受或拒绝日志事件。
@@ -57,7 +57,7 @@
             每个日志文件大小不得超过size，否则会自动存入按年份-月份建立的文件夹下面并进行压缩存档
         -->
         <RollingFile name="RollingFileWarn" fileName="${log-path}/order-server-warn.log"
-                     filePattern="${log-path}/warn/$${date:yyyyMM}/order-server-warn-%d{yyyyMMdd}-%i.log.gz">
+                     filePattern="${log-path}/warn/$${date:yyyyMMdd}/order-server-warn-%d{yyyyMMdd}-%i.log.gz">
             <Filters>
             <!--
                 ThresholdFilter用于过滤日志事件的核心组件，其核心作用是根据设定的阈值决定是否接受或拒绝日志事件。
@@ -86,7 +86,7 @@
             每个日志文件大小不得超过size，否则会自动存入按年份-月份建立的文件夹下面并进行压缩存档
         -->
         <RollingFile name="RollingFileError" fileName="${log-path}/order-server-error.log"
-                     filePattern="${log-path}/error/$${date:yyyyMM}/order-server-error-%d{yyyyMMdd}-%i.log.gz">
+                     filePattern="${log-path}/error/$${date:yyyyMMdd}/order-server-error-%d{yyyyMMdd}-%i.log.gz">
             <Filters>
                 <!--
                     ThresholdFilter用于过滤日志事件的核心组件，其核心作用是根据设定的阈值决定是否接受或拒绝日志事件。

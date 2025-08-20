@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.jufamen.gobbler.common.check.Delete;
 import com.jufamen.gobbler.common.check.Edit;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -32,6 +33,7 @@ public class BaseEntity implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    @Schema(description = "主键ID", example = "添加时，系统自动生成；修改/删除时，必填参数")
     @NotNull(message = "主键ID不能为空",groups = {Edit.class, Delete.class})
     @TableId(type = IdType.AUTO)
     private Integer id;

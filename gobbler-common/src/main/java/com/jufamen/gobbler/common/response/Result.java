@@ -1,5 +1,6 @@
 package com.jufamen.gobbler.common.response;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,6 +19,7 @@ import java.io.Serializable;
  */
 @Setter
 @Getter
+@Schema(description = "接口响应结果对象")
 public class Result<T> implements Serializable {
 
     /*
@@ -32,12 +34,15 @@ public class Result<T> implements Serializable {
     private static final long serialVersionUID = 1L;
 
     // 接口响应状态码
+    @Schema(description = "接口响应状态码")
     private int code;
 
     // 接口响应消息
+    @Schema(description = "接口响应消息")
     private String message;
 
     // 接口响应数据
+    @Schema(description = "接口响应数据")
     private T data;
 
     // 无参构造器
