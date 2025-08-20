@@ -10,13 +10,17 @@ import com.jufamen.user.server.entity.bo.AccountBo;
 import com.jufamen.user.server.entity.dto.QueryAccountDto;
 import com.jufamen.user.server.entity.pojo.Account;
 import com.jufamen.user.server.service.AccountService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * 账号控制器
+ * @description 账号请求控制器
+ * @author Jufamen
+ * @date 2025/8/16 15:50
  */
 /*
     @RestController是Spring 4.0之后新增的注解，是@Controller和@ResponseBody的组合注解，
@@ -79,6 +83,7 @@ import org.springframework.web.bind.annotation.*;
    通过自动生成构造函数来替代手动添加@Autowired注解，主要用于Spring框架中减少重复的依赖注入代码。
  */
 @RequiredArgsConstructor
+@Tag(name = "账号管理")
 public class AccountController extends BaseController {
 
     /**
@@ -92,13 +97,19 @@ public class AccountController extends BaseController {
      * @return 需要返回接口响应结果
      */
     @GetMapping
-    public Result<Object> pageList(QueryAccountDto queryAccountDto){
-        log.info("进来。。。。");
+    @Operation(summary = "分页查询账号列表")
+    public Result<Object> pageList(@RequestBody QueryAccountDto queryAccountDto){
         IPage<AccountBo> page = this.buildPage(queryAccountDto);
         return accountService.pageList(page,queryAccountDto);
     }
 
+    /**
+     * 根据账号ID查询账号
+     * @param id 账号ID
+     * @return 需要返回接口响应结果
+     */
     @GetMapping("{id}")
+    @Operation(summary = "根据账号ID查询账号")
     public Result<Object> view(@PathVariable("id") Integer id){
         return accountService.view(id);
     }
@@ -109,7 +120,8 @@ public class AccountController extends BaseController {
      * @return 需要返回接口响应结果
      */
     @PostMapping
-    public Result<Object> add(@Validated(Add.class) Account account){
+    @Operation(summary = "添加账号")
+    public Result<Object> add(@RequestBody @Validated(Add.class) Account account){
         return accountService.add(account);
     }
 
@@ -119,7 +131,8 @@ public class AccountController extends BaseController {
      * @return 需要返回接口响应结果
      */
     @PutMapping
-    public Result<Object> edit(@Validated(Edit.class) Account account){
+    @Operation(summary = "编辑账号")
+    public Result<Object> edit(@RequestBody @Validated(Edit.class) Account account){
         return accountService.edit(account);
     }
 
@@ -129,7 +142,8 @@ public class AccountController extends BaseController {
      * @return 需要返回接口响应结果
      */
     @DeleteMapping
-    public Result<Object> delete(@Validated(Delete.class) Account account){
+    @Operation(summary = "删除账号")
+    public Result<Object> delete(@RequestBody @Validated(Delete.class) Account account){
         return accountService.delete(account);
     }
 }

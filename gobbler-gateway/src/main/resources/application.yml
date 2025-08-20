@@ -15,16 +15,37 @@ spring:
         webmvc:
           routes: # 配置路由转发机制，路由是构建网关的基本模块，它由ID，目标URI，一系列的断言和过滤器组成，如果断言为true则匹配该路由
             - id: user-server # 路由ID是路由的唯一标识
-              uri: lb://user # 目标URI指明了请求转发的目标地址
+              uri: lb://user-server # 目标URI指明了请求转发的目标地址
               predicates: # 谓词和过滤器则是用来描述路由的行为
-                - Path=/user/** # 谓词是用来匹配HTTP请求的，只有满足谓词条件的请求才会被路由转
+                - Path=/user-server/** # 谓词是用来匹配HTTP请求的，只有满足谓词条件的请求才会被路由转
             - id: order-server
-              uri: lb://order
+              uri: lb://order-server
               predicates:
-                - Path=/order/**
+                - Path=/order-server/**
+# 关键：告诉 Swagger-UI（Knife4j）有哪些远程文档可选
+springdoc:
+  swagger-ui:
+    enabled: true
+    urls:
+      - name: 用户服务
+        url: /user-server/v3/api-docs     # 走网关转发到 user-server
+      - name: 订单服务
+        url: /order-server/v3/api-docs    # 走网关转发到 order-server
+knife4j:
+  enable: true
+  setting:
+    language: zh-CN
+    enableDebug: false
 security:
   jwt:
     secret: gobbler-secret # JWT签名密钥
     ttl: 7200 # JWT有效期（单位：秒）
   ignore-urls: # 白名单资源列表
-    - /user/login
+    - /favicon.ico
+    - /user-server/login
+    - /doc.html
+    - /webjars/**
+    - /v3/**
+    - /swagger-resources/**
+    - /order-server/v3/**
+    - /user-server/v3/**

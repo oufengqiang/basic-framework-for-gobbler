@@ -1,12 +1,16 @@
 package com.jufamen.order.server.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 账号控制器
+ * @description 订单请求控制器
+ * @author Jufamen
+ * @date 2025/8/16 15:58
  */
 /*
     @RestController是Spring 4.0之后新增的注解，是@Controller和@ResponseBody的组合注解，
@@ -62,17 +66,18 @@ import org.springframework.web.bind.annotation.RestController;
         @Reflective({ControllerMappingReflectiveProcessor.class})
             用于指示元素需要反射处理，它会触发配置处理器并默认注册提示，支持自动装载和元注解应用
  */
-@RequestMapping("/account")
+@RequestMapping("/order")
 @Slf4j
-public class AccountController{
+@Tag(name = "订单管理")
+public class OrderController{
 
     /**
      * 分页查询账号信息
      * @return 需要返回接口响应结果
      */
     @GetMapping
+    @Operation(summary = "分页查询订单列表")
     public String pageList(){
-        log.info("进来。。。。");
-        return "account";
+        return "order";
     }
 }

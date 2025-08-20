@@ -6,8 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -18,11 +16,13 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
- * Spring Security权限配置类
+ * @description Spring Security权限配置类
  * Spring3.0之前要使用Spring必须要有一个xml配置文件，而Spring3.0之后注解慢慢登上舞台，
  * 通过注解@Configuration和@Bean可以完全搞定。此时，注解和xml配置形成了相互协作与竞争的关系。
  * 随着Springboot的推广，注解的使用在Spring中大放光彩，xml的辉煌一去不返。
  * 通过注解，简化了配置，提升了编码效率。
+ * @author Jufamen
+ * @date 2025/8/16 15:54
  */
 /*
     @Configuration注解是实现Java配置的核心。
@@ -121,10 +121,5 @@ public class SecurityConfig {
                 .addFilterBefore(new JwtValidationFilter(userDetailsService,securityProperties.getJwt().getSecret()), UsernamePasswordAuthenticationFilter.class);
         // 根据通过HttpSecurity配置的安全规则，创建并返回一个SecurityFilterChain对象，该对象包含了所有基于配置的安全过滤器，并按照预定的顺序排列
         return http.build();
-    }
-
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
     }
 }

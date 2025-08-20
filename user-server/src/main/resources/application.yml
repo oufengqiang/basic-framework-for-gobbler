@@ -1,10 +1,10 @@
 server:
   port: 11802
   servlet:
-    context-path: /user
+    context-path: /user-server
 spring:
   application:
-    name: user
+    name: user-server
   cloud:
     nacos:
       discovery:

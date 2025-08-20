@@ -75,6 +75,9 @@
         <mysql.version>9.3.0</mysql.version>
         <gobbler.version>0.0.1-RELEASE</gobbler.version>
         <hutool.version>5.8.39</hutool.version>
+        <knife4j.version>4.4.0</knife4j.version>
+        <springdoc.version>2.8.9</springdoc.version>
+        <commons-lang3.version>3.18.0</commons-lang3.version>
     </properties>
     <!-- 模块（也称子项目），被构建成项目的一部分。列出的每个模块元素是指向该模块的目录的相对路径 -->
     <modules>
@@ -88,6 +91,22 @@
          要获取更多信息，请看项目依赖机制。
      -->
     <dependencies>
+        <!-- Knife4j依赖 -->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+            <version>${knife4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>${springdoc.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
+        </dependency>
         <!-- 参数校验依赖 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

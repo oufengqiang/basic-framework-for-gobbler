@@ -1,10 +1,10 @@
 server:
   port: 11803
   servlet:
-    context-path: /order
+    context-path: /order-server
 spring:
   application:
-    name: order
+    name: order-server
   cloud:
     nacos:
       discovery:

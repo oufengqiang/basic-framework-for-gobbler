@@ -4,17 +4,21 @@ package com.jufamen.user.server.controller;
 import com.jufamen.gobbler.common.check.Add;
 import com.jufamen.gobbler.common.response.Result;
 import com.jufamen.user.server.entity.dto.LoginDto;
-import com.jufamen.user.server.entity.pojo.Account;
 import com.jufamen.user.server.service.LoginService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 登录控制器
+ * @description 登录请求控制器
+ * @author Jufamen
+ * @date 2025/8/16 15:52
  */
 /*
     @RestController是Spring 4.0之后新增的注解，是@Controller和@ResponseBody的组合注解，
@@ -77,6 +81,7 @@ import org.springframework.web.bind.annotation.RestController;
    通过自动生成构造函数来替代手动添加@Autowired注解，主要用于Spring框架中减少重复的依赖注入代码。
  */
 @RequiredArgsConstructor
+@Tag(name = "登录管理")
 public class LoginController {
 
     /**
@@ -89,8 +94,13 @@ public class LoginController {
      * @param loginDto 登录参数
      * @return 需要返回接口响应结果
      */
+    /*
+        使用@Validated进行参数校验
+        使用@RequestBody接收JSON参数
+     */
     @PostMapping("/login")
-    public Result<Object> login(@Validated(Add.class) LoginDto loginDto){
+    @Operation(summary = "登录")
+    public Result<Object> login(@RequestBody @Validated(Add.class) LoginDto loginDto){
         return loginService.login(loginDto);
     }
 
