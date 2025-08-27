@@ -75,6 +75,14 @@ public class JwtValidationFilter extends OncePerRequestFilter {
             return;
         }
         JWTPayload payload = jwt.getPayload();
+        // 获取 exp 过期时间
+        long exp = payload.getClaimsJson().getLong("exp");
+        // 检查是否过期
+        if (exp <= System.currentTimeMillis()) {
+            log.warn("客户端请求：{}，TOKEN已过期", uri);
+            GlobalRetrun.retrunResult(response,HttpServletResponse.SC_UNAUTHORIZED,"TOKEN已过期");
+            return;
+        }
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(payload.getClaimsJson().getStr(JWTPayload.SUBJECT));
         // 在Spring Security中，UsernamePasswordAuthenticationToken是用于封装用户认证信息的核心类。手动构建一个已认证的Authentication对象，并设置到SecurityContextHolder中。
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());

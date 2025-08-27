@@ -1,10 +1,8 @@
-package com.jufamen.gobbler.gateway.properties;
+package com.jufamen.user.server.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 /**
  * 读取security配置类
@@ -18,11 +16,6 @@ import java.util.List;
  */
 @ConfigurationProperties(prefix = "security")
 public class SecurityProperties {
-
-    /**
-     * 白名单资源列表
-     */
-    private List<String> ignoreUrls;
 
     /**
      * JWT配置

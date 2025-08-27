@@ -7,6 +7,7 @@ import com.jufamen.gobbler.common.response.Result;
 import com.jufamen.gobbler.common.response.ResultEnum;
 import com.jufamen.user.server.entity.dto.LoginDto;
 import com.jufamen.user.server.entity.pojo.Account;
+import com.jufamen.user.server.properties.SecurityProperties;
 import com.jufamen.user.server.mapper.AccountMapper;
 import com.jufamen.user.server.service.LoginService;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,11 @@ import java.util.Map;
 public class LoginServiceImpl implements LoginService {
 
     /**
+     * security配置对象
+     */
+    private final SecurityProperties securityProperties;
+
+    /**
      * 账号CRUD封装方法实例
      */
     private final AccountMapper accountMapper;
@@ -50,14 +56,13 @@ public class LoginServiceImpl implements LoginService {
         if (!account.getPassword().equals(loginDto.getPassword())){
             return Result.failed(ResultEnum.CUSTOMIZE.getCode(),"密码不正确");
         }
-        String secret = "gobbler-secret";
         // 定义载荷（Payload）
         Map<String, Object> payload = new HashMap<>();
         payload.put("id", account.getId());
         payload.put("sub", account.getAccount());
-        payload.put("exp", 3600 * 1000); // 1小时后过期
+        payload.put("exp", System.currentTimeMillis() + 60 * 1000); // 1小时后过期
         // 默认情况下，JWTUtil.createToken生成的JWT，头部包含 alg: HS256和 typ: JWT，无需额外设置
-        String token = JWTUtil.createToken(payload, secret.getBytes());
+        String token = JWTUtil.createToken(payload, securityProperties.getJwt().getSecret().getBytes());
         // Maps.newHashMap()是Guava库提供的一个工具类方法，用于创建HashMap对象。与直接使用new HashMap()相比，Guava的Maps.newHashMap()方法在代码可读性和功能扩展性上有优势。
         Map<String,Object> resultMap = Maps.newHashMap();
         resultMap.put("account",account.getAccount());
